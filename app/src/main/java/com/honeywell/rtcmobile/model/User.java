@@ -1,4 +1,4 @@
-package com.honeywell.rtcmobile.api.model;
+package com.honeywell.rtcmobile.model;
 
 public class User {
 

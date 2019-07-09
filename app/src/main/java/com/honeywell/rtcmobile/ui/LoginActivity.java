@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.honeywell.rtcmobile.api.model.User;
-import com.honeywell.rtcmobile.api.service.UserClient;
+import com.honeywell.rtcmobile.model.User;
+import com.honeywell.rtcmobile.service.login.UserClient;
 
 import com.honeywell.rtcmobile.R;
 

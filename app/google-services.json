@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "259344159884",
+    "firebase_url": "https://rtc-backend-test.firebaseio.com",
+    "project_id": "rtc-backend-test",
+    "storage_bucket": "rtc-backend-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259344159884:android:0d06d224ec3c8cc1",
+        "android_client_info": {
+          "package_name": "com.honeywell.rtcmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259344159884-qbh44digojuumkq8n0ag057qo7elcf1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9x1jY_BFqAToO0c-0H0fuShfNSq-tEU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259344159884-qbh44digojuumkq8n0ag057qo7elcf1c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
