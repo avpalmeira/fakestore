@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -29,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText username, password;
     private Retrofit retrofit;
 
+    private static String TOKEN;
+
     private static final String TAG = LoginActivity.class.toString();
 
     @Override
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+
+        // TODO :: setar onClickListener no botao
 
         Retrofit.Builder builder =
                 new Retrofit.Builder()
@@ -67,15 +70,11 @@ public class LoginActivity extends AppCompatActivity {
             // Pega o username e password e cria o header para a chamada
             String usernameVal = username.getText().toString();
             String passwordVal = password.getText().toString();
-            String credentials = usernameVal+":"+passwordVal;
 
-            String base = Base64.encodeToString(
-                    credentials.getBytes(),
-                    Base64.NO_WRAP);
 
-            String authHeader = "Basic "+base;
+            User user = new User(usernameVal, passwordVal);
 
-            Call<User> call = client.getUser(authHeader);
+            Call<User> call = client.login(user);
 
             // Faz uma chamada assincrona para o servidor
             call.enqueue(new Callback<User>() {
@@ -87,12 +86,21 @@ public class LoginActivity extends AppCompatActivity {
 
                     Log.i(TAG, response.toString());
 
-                    // Tendo qualquer resposta, lança um Toast com body da resposta
-                    Toast.makeText(
-                            LoginActivity.this,
-                            "You got a response:\n" + response.body(),
-                            Toast.LENGTH_LONG
-                    ).show();
+                    // TODO :: salvar token recebido
+
+                    if (response.isSuccessful()) {
+                        Toast.makeText(
+                                LoginActivity.this,
+                                "You got a response:\n" + response.body().getToken(),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    } else {
+                        Toast.makeText(
+                                LoginActivity.this,
+                                "Your login credentials are invalid",
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
                 }
 
                 @Override
@@ -111,10 +119,5 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    // Método para testes
-    public void tryLogin(View view) {
-
     }
 }
