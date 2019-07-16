@@ -2,10 +2,13 @@ package com.honeywell.rtcmobile.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,11 +29,16 @@ public class LoginActivity extends AppCompatActivity {
     private static final String BASE_URL = "http://10.0.60.75:8080/";
 
     private EditText username, password;
-    private Retrofit retrofit;
+    private Button loginButton;
 
-    private static String TOKEN;
+    public static Retrofit retrofit;
 
-    private static final String TAG = LoginActivity.class.toString();
+    private LoginActivity self = this;
+
+    private static String token;
+
+    public static final String TAG = LoginActivity.class.toString();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +48,9 @@ public class LoginActivity extends AppCompatActivity {
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        loginButton = findViewById(R.id.login);
 
-        // TODO :: setar onClickListener no botao
+        loginButton.setOnClickListener(handleLogin);
 
         Retrofit.Builder builder =
                 new Retrofit.Builder()
@@ -51,73 +60,81 @@ public class LoginActivity extends AppCompatActivity {
         retrofit = builder.build();
     }
 
-    public void handleLogin(View view) {
 
-        Log.i(TAG, "Login task called");
+    private OnClickListener handleLogin = new OnClickListener() {
 
-        // TODO :: separar a validacao para uma classe propria
-        if (TextUtils.isEmpty(username.getText())) {
-            username.setError(
-                    "Username is required");
-        } else if (TextUtils.isEmpty(password.getText())) {
-            password.setError(
-                    "Password is required");
-        } else {
+        @Override
+        public void onClick(View view) {
+            Log.i(TAG, "Login task called");
 
-            UserClient client = retrofit.create(UserClient.class);
+            // TODO :: separar a validacao para uma classe propria
+            if (TextUtils.isEmpty(username.getText())) {
 
-            // TODO :: usar classe Credentials para gerar o header
-            // Pega o username e password e cria o header para a chamada
-            String usernameVal = username.getText().toString();
-            String passwordVal = password.getText().toString();
+                username.setError(
+                        "Username is required");
+            } else if (TextUtils.isEmpty(password.getText())) {
+
+                password.setError(
+                        "Password is required");
+            } else {
+
+                UserClient client = retrofit.create(UserClient.class);
+
+                // Pega o username e password e cria o header para a chamada
+                String usernameVal = username.getText().toString();
+                String passwordVal = password.getText().toString();
 
 
-            User user = new User(usernameVal, passwordVal);
+                User user = new User(usernameVal, passwordVal);
 
-            Call<User> call = client.login(user);
+                Call<User> call = client.login(user);
 
-            // Faz uma chamada assincrona para o servidor
-            call.enqueue(new Callback<User>() {
+                // Faz uma chamada assincrona para o servidor
+                call.enqueue(new Callback<User>() {
 
-                @Override
-                public void onResponse(
-                        Call<User> call,
-                        Response<User> response) {
+                    @Override
+                    public void onResponse(
+                            Call<User> call,
+                            Response<User> response) {
 
-                    Log.i(TAG, response.toString());
+                        if (response.isSuccessful()) {
 
-                    // TODO :: salvar token recebido
+                            token = response.body().getToken();
 
-                    if (response.isSuccessful()) {
+                            Log.i(TAG, "TOKEN: "+token);
+
+                            // Abre nova activity passando o token
+                            Intent intent = new Intent(self, HomeActivity.class);
+                            intent.putExtra(TAG, token);
+
+                            startActivity(intent);
+
+                        } else {
+
+                            Toast.makeText(
+                                    LoginActivity.this,
+                                    "Your login credentials are invalid",
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(
+                            Call<User> call,
+                            Throwable t) {
+
+                        Log.e(TAG, t.getMessage());
+
+                        // Informa qual o erro pelo Toast
                         Toast.makeText(
                                 LoginActivity.this,
-                                "You got a response:\n" + response.body().getToken(),
-                                Toast.LENGTH_LONG
-                        ).show();
-                    } else {
-                        Toast.makeText(
-                                LoginActivity.this,
-                                "Your login credentials are invalid",
+                                "You got an error: " + t.getMessage(),
                                 Toast.LENGTH_LONG
                         ).show();
                     }
-                }
-
-                @Override
-                public void onFailure(
-                        Call<User> call,
-                        Throwable t) {
-
-                    Log.e(TAG, t.getMessage());
-
-                    // Informa qual o erro pelo Toast
-                    Toast.makeText(
-                            LoginActivity.this,
-                            "You got an error: " + t.getMessage(),
-                            Toast.LENGTH_LONG
-                    ).show();
-                }
-            });
+                });
+            }
         }
-    }
+    };
 }
