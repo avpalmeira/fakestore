@@ -23,8 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // Instancia PHP em maquina da rede local da ASSERT
-    private static final String BASE_URL = "http://10.0.60.108/";
+    // TODO :: criar arquivo para configurar conexao
+    private static final String BASE_URL = "http://10.0.60.75:8080/";
 
     private EditText username, password;
     private Retrofit retrofit;
@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
 
             // Faz uma chamada assincrona para o servidor
             call.enqueue(new Callback<User>() {
+
                 @Override
                 public void onResponse(
                         Call<User> call,
@@ -110,5 +111,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    // Método para testes
+    public void tryLogin(View view) {
+
     }
 }
