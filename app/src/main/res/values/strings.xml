@@ -11,4 +11,5 @@
     <string name="login_failed">"Login failed"</string>
     <string name="home_title">Products Page</string>
     <string name="button_call">fetch products</string>
+    <string name="logout">Logout</string>
 </resources>

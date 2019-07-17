@@ -23,10 +23,11 @@ import retrofit2.Response;
 public class HomeActivity extends AppCompatActivity {
 
     private String token;
-    private Button button;
+    private Button fetch, logout;
     private TextView results;
     private UserClient client;
 
+    HomeActivity self = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        button = findViewById(R.id.fetch_products);
+        logout = findViewById(R.id.logout);
+        fetch = findViewById(R.id.fetch_products);
         results = findViewById(R.id.products_list);
 
         Intent intent = getIntent();
@@ -42,14 +44,20 @@ public class HomeActivity extends AppCompatActivity {
 
         client = LoginActivity.retrofit.create(UserClient.class);
 
-        button.setOnClickListener(buttonListener);
+        fetch.setOnClickListener(fetchListener);
+        logout.setOnClickListener(logoutHandler);
     }
 
 
-    private OnClickListener buttonListener = new OnClickListener() {
+    private OnClickListener fetchListener = new OnClickListener() {
 
         @Override
         public void onClick(View view) {
+
+            // TODO :: throw error message
+            if (token == null) {
+                return;
+            }
 
             Call<List<List<Product>>> productCall = client.getProducts("Bearer "+token);
 
@@ -62,6 +70,8 @@ public class HomeActivity extends AppCompatActivity {
 
                     if (response.isSuccessful()) {
                         List<Product> listProducts = response.body().get(0);
+
+                        results.setText("");
 
                         for (Product product : listProducts) {
 
@@ -81,6 +91,18 @@ public class HomeActivity extends AppCompatActivity {
                     results.setText("There was an error: "+t.getMessage());
                 }
             });
+        }
+    };
+
+    private OnClickListener logoutHandler = new OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+
+            token = null;
+
+            Intent intent = new Intent(self, LoginActivity.class);
+            startActivity(intent);
         }
     };
 }
