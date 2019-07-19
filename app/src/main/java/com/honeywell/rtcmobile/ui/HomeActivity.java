@@ -42,8 +42,6 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         token = intent.getStringExtra(LoginActivity.TAG);
 
-        client = LoginActivity.retrofit.create(UserClient.class);
-
         fetch.setOnClickListener(fetchListener);
         logout.setOnClickListener(logoutHandler);
     }
@@ -58,6 +56,8 @@ public class HomeActivity extends AppCompatActivity {
             if (token == null) {
                 return;
             }
+
+            client = LoginActivity.retrofit.create(UserClient.class);
 
             Call<List<List<Product>>> productCall = client.getProducts("Bearer "+token);
 
