@@ -2,8 +2,11 @@ package com.honeywell.rtcmobile.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,15 +25,21 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private String token;
-    private Button fetch, logout;
+    private String token = "";
+
     private TextView results;
-    private UserClient client;
 
     HomeActivity self = this;
 
+    private SharedPreferences sharedPref;
+
+    public static final String TAG = HomeActivity.class.toString();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Button fetch, logout;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -39,8 +48,17 @@ public class HomeActivity extends AppCompatActivity {
         fetch = findViewById(R.id.fetch_products);
         results = findViewById(R.id.products_list);
 
-        Intent intent = getIntent();
-        token = intent.getStringExtra(LoginActivity.TAG);
+        // Resgatar token de shared preferences
+        sharedPref = getSharedPreferences(
+                getString(R.string.preference_file_key),
+                Context.MODE_PRIVATE
+        );
+        token = sharedPref.getString(
+                getString(R.string.token_pref_key),
+                token
+        );
+
+        Log.d(TAG, "Token retrieved: "+token);
 
         fetch.setOnClickListener(fetchListener);
         logout.setOnClickListener(logoutHandler);
@@ -53,13 +71,19 @@ public class HomeActivity extends AppCompatActivity {
         public void onClick(View view) {
 
             // TODO :: throw error message
-            if (token == null) {
+            if (token == null || token.equals("")) {
+
+                Log.e(TAG, "An error occurred fetching data");
                 return;
             }
 
-            client = LoginActivity.retrofit.create(UserClient.class);
+            UserClient client = LoginActivity.retrofit.create(UserClient.class);
 
-            Call<List<List<Product>>> productCall = client.getProducts("Bearer "+token);
+            // TODO:FIX :: call deve retornar somente uma lista de produtos, e nao um lista dentro de outra
+            Call<List<List<Product>>> productCall =
+                    client.getProducts("Bearer "+token);
+
+            Log.i(TAG, "Called task to retrieve products.");
 
             productCall.enqueue(new Callback<List<List<Product>>>() {
 
@@ -99,7 +123,14 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            token = null;
+            token = "";
+
+            // Remove token de shared preferences
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.remove(getString(R.string.token_pref_key));
+            editor.apply();
+
+            Log.i(TAG, "Logout task called");
 
             Intent intent = new Intent(self, LoginActivity.class);
             startActivity(intent);

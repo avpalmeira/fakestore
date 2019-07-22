@@ -2,7 +2,9 @@ package com.honeywell.rtcmobile.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String BASE_URL = "http://10.0.60.75:8080/";
 
     private EditText username, password;
-    private Button loginButton;
 
     public static Retrofit retrofit;
 
@@ -39,9 +40,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = LoginActivity.class.toString();
 
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Button loginButton;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -103,9 +109,19 @@ public class LoginActivity extends AppCompatActivity {
 
                             Log.i(TAG, "TOKEN: "+token);
 
-                            // Abre nova activity passando o token
                             Intent intent = new Intent(self, HomeActivity.class);
-                            intent.putExtra(TAG, token);
+
+                            // Acessando arquivo de shared preferences e editor
+                            sharedPref = getSharedPreferences(
+                                    getString(R.string.preference_file_key),
+                                    Context.MODE_PRIVATE);
+                            editor = sharedPref.edit();
+
+                            // Salva token em shared preferences
+                            editor.putString(
+                                    getString(R.string.token_pref_key),
+                                    token);
+                            editor.apply();
 
                             startActivity(intent);
 
