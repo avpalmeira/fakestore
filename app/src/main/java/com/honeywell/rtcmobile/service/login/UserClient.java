@@ -1,6 +1,7 @@
 package com.honeywell.rtcmobile.service.login;
 
-import com.honeywell.rtcmobile.model.Product;
+import com.honeywell.rtcmobile.model.TestValue;
+
 import com.honeywell.rtcmobile.model.User;
 
 import java.util.List;
@@ -13,14 +14,14 @@ import retrofit2.http.POST;
 
 public interface UserClient {
 
-    @GET("/api/v1/auth/products")
-    Call<List<List<Product>>> getProducts(
+    @GET("/api/values")
+    Call<List<TestValue>> getValues(
 
             @Header("Authorization")
             String authHeader
     );
 
-    @POST("/api/v1/auth/login")
+    @POST("/api/account/login")
     Call<User> login(
 
             @Body

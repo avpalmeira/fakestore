@@ -13,8 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.honeywell.rtcmobile.R;
-import com.honeywell.rtcmobile.model.Product;
 import com.honeywell.rtcmobile.service.login.UserClient;
+
+import com.honeywell.rtcmobile.model.TestValue;
 
 import java.util.List;
 
@@ -79,27 +80,28 @@ public class HomeActivity extends AppCompatActivity {
 
             UserClient client = LoginActivity.retrofit.create(UserClient.class);
 
-            // TODO:FIX :: call deve retornar somente uma lista de produtos, e nao um lista dentro de outra
-            Call<List<List<Product>>> productCall =
-                    client.getProducts("Bearer "+token);
+            Call<List<TestValue>> valuesCall =
+                    client.getValues("Bearer "+token);
 
             Log.i(TAG, "Called task to retrieve products.");
 
-            productCall.enqueue(new Callback<List<List<Product>>>() {
+            valuesCall.enqueue(new Callback<List<TestValue>>() {
 
                 @Override
                 public void onResponse(
-                        Call<List<List<Product>>> call,
-                        Response<List<List<Product>>> response) {
+                        Call<List<TestValue>> call,
+                        Response<List<TestValue>> response) {
 
                     if (response.isSuccessful()) {
-                        List<Product> listProducts = response.body().get(0);
+                        List<TestValue> listValues = response.body();
 
                         results.setText("");
 
-                        for (Product product : listProducts) {
+                        for (TestValue value : listValues) {
 
-                            results.append(product.toString());
+                            Log.i(TAG, "Value: "+value.getValue());
+
+                            results.append(value.getValue()+"\n\n");
                         }
                     } else {
 
@@ -109,7 +111,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(
-                        Call<List<List<Product>>> call,
+                        Call<List<TestValue>> call,
                         Throwable t) {
 
                     results.setText("There was an error: "+t.getMessage());

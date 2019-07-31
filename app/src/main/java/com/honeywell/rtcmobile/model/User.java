@@ -3,14 +3,14 @@ package com.honeywell.rtcmobile.model;
 public class User {
 
     private String name,
-                   Matricula,
-                   Senha,
+                   Username,
+                   Password,
                    token;
 
-    public User(String Matricula, String Senha) {
+    public User(String Username, String Password) {
 
-        this.Matricula = Matricula;
-        this.Senha = Senha;
+        this.Username = Username;
+        this.Password = Password;
     }
 
     public String getName() {
@@ -21,20 +21,20 @@ public class User {
         this.name = name;
     }
 
-    public String getMatricula() {
-        return Matricula;
+    public String getUsername() {
+        return Username;
     }
 
-    public void setMatricula(String Matricula) {
-        this.Matricula = Matricula;
+    public void setUsername(String Username) {
+        this.Username = Username;
     }
 
-    public String getSenha() {
-        return Senha;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setSenha(String Senha) {
-        this.Senha = Senha;
+    public void setPassword(String Password) {
+        this.Password = Password;
     }
 
     public String getToken() {
@@ -48,7 +48,7 @@ public class User {
     @Override
     public String toString() {
         return "user:"+getName()+"\n"+
-                "matricula:"+getMatricula()+"\n"+
-                "senha:"+getSenha();
+               "username:"+getUsername()+"\n"+
+               "password:"+getPassword();
     }
 }
