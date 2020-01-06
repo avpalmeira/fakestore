@@ -1,4 +1,4 @@
-package com.honeywell.rtcmobile;
+package com.honeywell.mobile;
 
 import org.junit.Test;
 

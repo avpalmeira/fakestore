@@ -1,4 +1,4 @@
-package com.honeywell.rtcmobile.ui;
+package com.honeywell.mobile.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,10 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.honeywell.rtcmobile.model.User;
-import com.honeywell.rtcmobile.service.login.UserClient;
+import com.honeywell.mobile.model.User;
+import com.honeywell.mobile.service.login.UserClient;
 
-import com.honeywell.rtcmobile.R;
+import com.honeywell.mobile.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,8 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // TODO :: criar arquivo para configurar conexao
-    private static final String BASE_URL = "http://10.0.60.75:8080/";
+    private final String BASE_URL = getString(R.string.connection_string);
 
     private EditText username, password;
 

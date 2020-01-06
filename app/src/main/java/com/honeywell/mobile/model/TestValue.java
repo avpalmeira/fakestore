@@ -1,4 +1,4 @@
-package com.honeywell.rtcmobile.model;
+package com.honeywell.mobile.model;
 
 public class TestValue {
 

@@ -1,8 +1,8 @@
-package com.honeywell.rtcmobile.service.login;
+package com.honeywell.mobile.service.login;
 
-import com.honeywell.rtcmobile.model.TestValue;
+import com.honeywell.mobile.model.TestValue;
 
-import com.honeywell.rtcmobile.model.User;
+import com.honeywell.mobile.model.User;
 
 import java.util.List;
 

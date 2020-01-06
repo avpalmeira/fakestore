@@ -1,9 +1,9 @@
-package com.honeywell.rtcmobile;
+package com.honeywell.mobile;
 
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.honeywell.rtcmobile.ui.LoginActivity;
+import com.honeywell.mobile.ui.LoginActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,7 +13,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class LoginActivityTest {

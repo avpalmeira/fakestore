@@ -1,4 +1,4 @@
-package com.honeywell.rtcmobile.ui;
+package com.honeywell.mobile.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,10 +12,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.honeywell.rtcmobile.R;
-import com.honeywell.rtcmobile.service.login.UserClient;
+import com.honeywell.mobile.R;
+import com.honeywell.mobile.service.login.UserClient;
 
-import com.honeywell.rtcmobile.model.TestValue;
+import com.honeywell.mobile.model.TestValue;
 
 import java.util.List;
 
