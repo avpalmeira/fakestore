@@ -1,4 +1,4 @@
-package com.honeywell.mobile.ui;
+package com.fakestore.mobile.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,10 +12,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.honeywell.mobile.R;
-import com.honeywell.mobile.service.login.UserClient;
+import com.fakestore.mobile.R;
+import com.fakestore.mobile.service.login.UserClient;
 
-import com.honeywell.mobile.model.TestValue;
+import com.fakestore.mobile.model.TestValue;
 
 import java.util.List;
 

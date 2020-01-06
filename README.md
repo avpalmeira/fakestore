@@ -1,7 +1,7 @@
 
-# Projeto RTC Mobile
+# Projeto Fakestore Mobile
 
-Aplicação mobile para controle de produção pela rastreabilidade dos insumos de almoxarifado, contemplando a entrega dos mesmos em linha de produção, seu correto apontamento até a entrega do produto acabado em expedição.
+Aplicação mobile para controle de produtos fakes.
 
 
 ## Estrutura do projeto
@@ -17,7 +17,7 @@ A aplicação está separado em 3 módulos / packages:
 
 1. Instale o [Android Studio](https://developer.android.com/studio) mais recente.
 2. Verifique se o git está instalado com (git -v) e, se não estiver, [baixe e instale a ferramenta](https://git-scm.com/downloads).
-3. Abra o Terminal e execute: `git clone http://10.0.60.3/honeywell/rtc-mobile` ou `git clone http://gitlabuser:password@10.0.60.3/honeywell/rtc-mobile` dentro da rede interna da ASSERT.
+3. Abra o Terminal e execute: `git clone repositorio-do-projeto`.
 4. Importe o projeto no Android Studio (File -> Open... ).
 5. Configure um emulador Android de versão 7.1.1 (AVD Manager) ou conecte ao computador um dispositivo Android de versão semelhante.
 

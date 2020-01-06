@@ -1,8 +1,8 @@
-package com.honeywell.mobile.service.login;
+package com.fakestore.mobile.service.login;
 
-import com.honeywell.mobile.model.TestValue;
+import com.fakestore.mobile.model.TestValue;
 
-import com.honeywell.mobile.model.User;
+import com.fakestore.mobile.model.User;
 
 import java.util.List;
 

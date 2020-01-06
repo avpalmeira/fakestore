@@ -1,4 +1,4 @@
-package com.honeywell.mobile.model;
+package com.fakestore.mobile.model;
 
 public class TestValue {
 

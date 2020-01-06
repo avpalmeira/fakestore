@@ -1,4 +1,4 @@
-package com.honeywell.mobile;
+package com.fakestore.mobile;
 
 import org.junit.Test;
 

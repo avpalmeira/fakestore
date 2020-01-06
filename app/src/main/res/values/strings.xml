@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RTC Mobile</string>
+    <string name="app_name">Fake Store</string>
 
     <!-- UI Strings -->
     <string name="prompt_username">Username</string>
@@ -15,7 +15,7 @@
     <string name="logout">Logout</string>
 
     <!-- KEYS -->
-    <string name="preference_file_key">com.honeywell.rtcmobile.PREFERENCE_FILE_KEY</string>
+    <string name="preference_file_key">com.fakestore.mobile.PREFERENCE_FILE_KEY</string>
     <string name="token_pref_key">TOKEN_PREF_KEY</string>
 
     <!-- CONNECTION STRING -->

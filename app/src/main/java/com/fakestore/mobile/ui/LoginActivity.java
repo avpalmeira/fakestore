@@ -1,4 +1,4 @@
-package com.honeywell.mobile.ui;
+package com.fakestore.mobile.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,10 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.honeywell.mobile.model.User;
-import com.honeywell.mobile.service.login.UserClient;
+import com.fakestore.mobile.model.User;
+import com.fakestore.mobile.service.login.UserClient;
 
-import com.honeywell.mobile.R;
+import com.fakestore.mobile.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,9 +27,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private final String BASE_URL = getString(R.string.connection_string);
-
     private EditText username, password;
+
+    private String BASE_URL;
 
     public static Retrofit retrofit;
 
@@ -47,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         Button loginButton;
+
+        BASE_URL = getString(R.string.connection_string);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);

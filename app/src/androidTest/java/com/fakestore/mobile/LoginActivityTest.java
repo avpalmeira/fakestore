@@ -1,9 +1,9 @@
-package com.honeywell.mobile;
+package com.fakestore.mobile.model;
 
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.honeywell.mobile.ui.LoginActivity;
+import com.fakestore.mobile.ui.LoginActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
